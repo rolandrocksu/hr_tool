@@ -1,13 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2> Sign Up</h2>
-    <form class="form-signin" method="post">
-        <h1 class="h3 mb-3 font-weight-normal">Sign Up</h1>
+    <h2 class="h3 mb-3 font-weight-normal"> Sign Up</h2>
+    <form class="form-signin" method="post" action="{% url 'signup' %}">
         {% csrf_token %}
-        <input id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="" type="email">
-        <input id="inputPassword" class="form-control" placeholder="Password" required="" type="password">
-        <input id="inputPassword" class="form-control" placeholder="Repeat Password" required="" type="password">
+        <label for="{{ form.username.id_for_label }}"></label>
+        {{ form.username }}
+        {{ form.username.errors }}
+
+        <label for="{{ form.password1.id_for_label }}"></label>
+        {{ form.password1 }}
+        {{ form.password1.errors }}
+
+        <label for="{{ form.password2.id_for_label }}"></label>
+        {{ form.password2 }}
+        {{ form.password2.errors }}
+
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
     </form>
 {% endblock %}
