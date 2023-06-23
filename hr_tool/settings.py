@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # django apps
     'accounts',
+    'tickets',
 ]
 
 MIDDLEWARE = [

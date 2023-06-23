@@ -1,0 +1,32 @@
+<!-- tickets/tickets.html -->
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <h1 class="h3 mb-3 font-weight-normal">Task Dashboard</h1>
+    <h2>Create Task</h2>
+    <div class="add-form">
+      <form class="form-signin" method="POST" action="{% url 'tickets_create' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>
+      </form>
+    </div>
+
+    <ul>
+      {% for task in tickets %}
+        <div class="task-bubble">
+        <li>{{ task.title }}</li>
+        <li>{{ task.description }}</li>
+        <li>{{ task.status }}</li>
+        <form method="POST" action="{% url 'tickets_update' task.id %}">
+            {% csrf_token %}
+            <button class="btn btn-sm btn-primary" type="submit">Edit</button>
+        </form>
+        </div>
+      {% empty %}
+        <li>No tickets found.</li>
+      {% endfor %}
+    </ul>
+{% endblock %}

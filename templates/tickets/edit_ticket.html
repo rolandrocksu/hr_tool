@@ -1,0 +1,16 @@
+<!-- tickets/edit_ticket.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Edit Task{% endblock %}
+
+{% block content %}
+    <h1 class="h3 mb-3 font-weight-normal">Edit Task</h1>
+    <div class="edit-form">
+        <form method="POST" action="{% url 'tickets_update' task.id %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Update</button>
+        </form>
+    </div>
+{% endblock %}
