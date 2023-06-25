@@ -9,7 +9,10 @@
       {% csrf_token %}
         <p style="color: darkred">{{ error_message }}</p>
         <label for="{{ form.username.id_for_label }}"></label>
-        {{ form.username }}
+        <div class="input-group">
+          <span class="input-group-text" id="inputGroupPrepend2">@</span>
+            {{ form.username }}
+        </div>
         {{ form.username.errors }}
 
         <label for="{{ form.password.id_for_label }}"></label>

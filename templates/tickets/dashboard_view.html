@@ -4,29 +4,88 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-    <h1 class="h3 mb-3 font-weight-normal">Task Dashboard</h1>
-    <h2>Create Task</h2>
-    <div class="add-form">
-      <form class="form-signin" method="POST" action="{% url 'tickets_create' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>
-      </form>
+<div style="margin-bottom: 4rem;">
+  <div class="row">
+    <div class="col-8 offset-2 text-center">
+      <h1 class="h3 mb-3 font-weight-normal">Task Dashboard</h1>
     </div>
+    <div class="col-2">
+      <div class="d-flex justify-content-end, " style="margin-left: 4rem;">
+        <a href="{% url 'logout' %}" class="btn btn-light btn-lg">
+          <span class="glyphicon glyphicon-log-out"></span> Log out
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Add Task
+  </button>
+</div>
+    <section id="list_task">
+        <div class="container">
+            <div class="row">
+                {% for task in tickets %}
+                    <div class="col" style="margin-bottom: 4rem;">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ task.title }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                    {% if task.status == tickets_status.TODO %}
+                                        <span class="badge bg-secondary">{{ task.get_status_display }}</span>
+                                    {% elif task.status == tickets_status.IN_PROGRESS %}
+                                        <span class="badge bg-primary">{{ task.get_status_display }}</span>
+                                    {% else %}
+                                        <span class="badge bg-success">{{ task.get_status_display }}</span>
+                                    {% endif %}
+                                </h6>
+                                <p class="card-text">{{ task.description }}</p>
+                                <form method="GET" action="{% url 'tickets_update' task.id %}">
+                                    {% csrf_token %}
+                                    <button class="btn btn-primary" type="submit">Edit</button>
+                                </form>
+                            </div>
+                        </div>
 
-    <ul>
-      {% for task in tickets %}
-        <div class="task-bubble">
-        <li>{{ task.title }}</li>
-        <li>{{ task.description }}</li>
-        <li>{{ task.status }}</li>
-        <form method="POST" action="{% url 'tickets_update' task.id %}">
-            {% csrf_token %}
-            <button class="btn btn-sm btn-primary" type="submit">Edit</button>
-        </form>
+                    </div>
+                {% empty %}
+                    <li>No tickets found.</li>
+                {% endfor %}
+            </div>
         </div>
-      {% empty %}
-        <li>No tickets found.</li>
-      {% endfor %}
-    </ul>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create Task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form class="form-signin" method="POST" action="{% url 'tickets_create' %}">
+                    <div class="modal-body">
+                        {% csrf_token %}
+                          <div class="mb-3">
+                              <label for="title" class="form-label">Title</label>
+                              {{ form.title }}
+                              </div>
+                              <div class="mb-3">
+                                <label for="description" class="form-label">Description</label>
+                                  {{ form.description }}
+                              </div>
+                              <div class="mb-3">
+                                <label for="selectField" class="form-label">Select Field</label>
+                                  {{ form.status }}
+                              </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Create</button>
+                            </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}

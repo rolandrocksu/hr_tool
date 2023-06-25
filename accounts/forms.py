@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-# from .models import CustomUser
+from django.contrib.auth.models import User
 
 
 class LoginForm(forms.Form):
@@ -10,8 +10,9 @@ class LoginForm(forms.Form):
             attrs={
                 'class': 'form-control',
                 'placeholder': 'Username',
-                'id': 'inputUsername',
-                'type': 'text'
+                'id': 'validationDefaultUsername',
+                'type': 'text',
+                'aria-describedby': 'inputGroupPrepend2'
             }
         ),
         required=True
@@ -28,27 +29,27 @@ class LoginForm(forms.Form):
         ),
         required=True
     )
-    remember_me = forms.BooleanField(
-        label='Remember me',
-        required=False
-    )
 
 
 class SignUpForm(UserCreationForm):
     username = forms.CharField(
         label='username',
+        required=True,
+        max_length=30,
         widget=forms.EmailInput(
             attrs={
                 'class': 'form-control',
                 'placeholder': 'Username',
-                'id': 'inputUsername',
-                'type': 'text'
+                'id': 'validationDefaultUsername',
+                'type': 'text',
+                'aria-describedby': 'inputGroupPrepend2'
             }
         ),
-        required=True
     )
     password1 = forms.CharField(
         label='Password',
+        required=True,
+        max_length=30,
         widget=forms.PasswordInput(
             attrs={
                 'class': 'form-control',
@@ -57,11 +58,12 @@ class SignUpForm(UserCreationForm):
                 'type': 'password'
             }
         ),
-        required=True
     )
 
     password2 = forms.CharField(
         label='Password',
+        required=True,
+        max_length=30,
         widget=forms.PasswordInput(
             attrs={
                 'class': 'form-control',
@@ -70,9 +72,8 @@ class SignUpForm(UserCreationForm):
                 'type': 'password'
             }
         ),
-        required=True
     )
 
-    # class Meta:
-    #     model = CustomUser
-    #     fields = ('username', 'password1', 'password2')
+    class Meta:
+        model = User
+        fields = ('username', 'password1', 'password2')

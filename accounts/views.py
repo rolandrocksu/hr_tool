@@ -58,8 +58,3 @@ class SignUpView(generic.CreateView):
                 'form': form,
             }
         )
-
-
-def sign_out(request):
-    logout(request)
-    return redirect('login')
