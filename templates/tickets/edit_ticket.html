@@ -3,29 +3,33 @@
 {% block title %}Edit Task{% endblock %}
 
 {% block content %}
-    <h1 class="h3 mb-3 font-weight-normal">Edit Task</h1>
-    <div class="edit-form">
-        <form method="POST" action="{% url 'tickets_update' task.id %}">
-            {% csrf_token %}
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="title" class="form-label">Title</label>
-                        {{ form.title }}
-                    </div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="h-100 d-flex align-items-center justify-content-center">
+                    <h5 class="modal-title" id="exampleModalLabel" >Edit Task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="status" class="form-label">Status</label>
-                        {{ form.status }}
+                <form class="form-signin" method="POST" action="{% url 'tickets_update' task.id %}">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="title">Title</label>
+                            {{ form.title }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="status">Status</label>
+                            {{ form.status }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="description">Description</label>
+                            {{ form.description }}
+                        </div>
                     </div>
-                </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-secondary" href="{% url 'tickets_list' %}">Close</a>
+                        <button type="submit" class="btn btn-primary" style="margin-left: 2rem;">Update</button>
+                    </div>
+                </form>
             </div>
-            <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
-                {{ form.description }}
-            </div>
-            <button class="btn btn-primary" type="submit">Update</button>
-        </form>
-    </div>
+        </div>
 {% endblock %}

@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import CreateView, ListView, UpdateView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from .forms import TicketsForm
 from .models import Ticket
 from .choices import TicketStatusChoices
-
+from django.urls import reverse_lazy
 
 class TicketsViewCreate(CreateView):
 
@@ -58,3 +58,13 @@ class TicketsViewUpdate(UpdateView):
     def form_valid(self, form):
         form.save()
         return redirect('tickets_list')
+
+
+class TicketDeleteView(DeleteView):
+
+    template_name = "tickets/confirm_delete.html"
+    success_url = reverse_lazy('tickets_list')
+
+    def get_object(self, queryset=None):
+        task_id = self.kwargs.get('pk')
+        return get_object_or_404(Ticket, id=task_id)

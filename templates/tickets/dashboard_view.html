@@ -40,13 +40,15 @@
                                     {% endif %}
                                 </h6>
                                 <p class="card-text">{{ task.description }}</p>
-                                <form method="GET" action="{% url 'tickets_update' task.id %}">
-                                    {% csrf_token %}
-                                    <button class="btn btn-primary" type="submit">Edit</button>
-                                </form>
+                                <div class="d-flex justify-content-between">
+                                    <a class="btn btn-primary" href="{% url 'tickets_update' task.id %}" >Edit</a>
+                                    <form method="GET" action="{% url 'tickets_delete' task.id %}">
+                                        {% csrf_token %}
+                                        <button class="btn btn-danger" type="submit">Delete</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 {% empty %}
                     <li>No tickets found.</li>

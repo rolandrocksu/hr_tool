@@ -5,19 +5,106 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-    Hi {{ user.username }}!
-    <p>Redirecting to the dashboard...</p>
+    <section class="cta">
+        <div class="container" style="margin-top: 2rem;">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2>Hi {{ user.username }}!</h2>
+                    <p>Redirecting to the dashboard...</p>
+                    <div id="countdown"></div>
+                    <p><a href="{% url 'logout' %}">Log Out</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <script>
-      // JavaScript redirect
-      setTimeout(function() {
-        window.location.href = "{% url 'tickets_list' %}";
-      }, 3000);  // Redirect after 3 seconds (adjust as needed)
+        // JavaScript countdown timer
+        var countdown = 3; // Countdown duration in seconds
+
+        function updateCountdown() {
+            document.getElementById('countdown').innerHTML = countdown;
+            countdown--;
+
+            if (countdown >= 0) {
+                setTimeout(updateCountdown, 1000); // Update countdown every second
+            } else {
+                window.location.href = "{% url 'tickets_list' %}"; // Redirect to the dashboard
+            }
+        }
+
+        updateCountdown();
     </script>
-    <p><a href="{% url 'logout' %}">Log Out</a> </p>
+
 {% else %}
-    <p>You are not logged in</p>
-    <a href="{% url 'login' %}">Log In</a>
-    <p>Or signup</p>
-    <a href="{% url 'signup' %}">Sign Up</a>
+   <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#"  style="margin-left: 5rem;" >HR</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+
+
+    <section class="features">
+        <div class="container" style="margin-top: 8rem;">
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Feature 1: Create Tasks</h2>
+                    <p>Create tasks easily and efficiently with our app. Whether it's personal or professional, you can organize your to-do list and stay on top of your responsibilities.</p>
+                </div>
+                <div class="col-md-4">
+                    <h2>Feature 2: Follow Tasks</h2>
+                    <p>Keep track of your tasks by following them. Get notifications and updates as you progress through your tasks, ensuring that nothing slips through the cracks.</p>
+                </div>
+                <div class="col-md-4">
+                    <h2>Feature 3: Stay Organized</h2>
+                    <p>Our app helps you stay organized by providing a centralized platform for all your tasks. Categorize tasks, set due dates, and prioritize your workload for optimal productivity.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container" style="margin-top: 2rem;">
+            <div class="row">
+                <div class="col-md-6 text-center">
+                    <a href="{% url 'login' %}" class="btn btn-primary btn-lg">Already have an account?</a>
+                </div>
+                <div class="col-md-6 text-center">
+                    <a href="{% url 'signup' %}" class="btn btn-primary btn-lg">Create your own account</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container" style="margin-top: 14rem;">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>&copy; HR tools. All rights reserved. 2023</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 {% endif %}
 {% endblock %}
