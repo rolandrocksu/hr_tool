@@ -38,3 +38,7 @@ pip3 install -r requirements.txt
 # run the web server on localhost:8000
 make run  
 ```
+```bash
+# migrate
+make migrate  
+```
