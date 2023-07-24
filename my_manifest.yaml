@@ -1,0 +1,11 @@
+apiVersion: v1
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJyZWdpc3RyeS5kaWdpdGFsb2NlYW4uY29tIjp7ImF1dGgiOiJaRzl3WDNZeFh6QmxObVU1TmpZek0yTTRZakJrT0RZNVpXWXdabVkyTW1VNE1HVXdZVGRqTkRJMk1qVTNPV0ZrTVRoaFptUTJZbVZtTTJKa01HVmxNRFJrWlRZME0yVTZaRzl3WDNZeFh6QmxObVU1TmpZek0yTTRZakJrT0RZNVpXWXdabVkyTW1VNE1HVXdZVGRqTkRJMk1qVTNPV0ZrTVRoaFptUTJZbVZtTTJKa01HVmxNRFJrWlRZME0yVT0ifX19
+kind: Secret
+metadata:
+  annotations:
+    digitalocean.com/dosecret-identifier: registry-learnk8s
+  creationTimestamp: null
+  name: registry-learnk8s
+  namespace: default
+type: kubernetes.io/dockerconfigjson

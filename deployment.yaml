@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hr-tool
+  name: hr-tool
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hr-tool
+  template:
+    metadata:
+      labels:
+        app: hr-tool
+    spec:
+      containers:
+      - image: registry.digitalocean.com/learnk8s/hr-tool:latest
+        imagePullPolicy: Always
+        name: hr-tool
+      imagePullSecrets:
+      - name: registry-learnk8s
